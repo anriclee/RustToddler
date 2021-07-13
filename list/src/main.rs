@@ -1,14 +1,14 @@
-enum List<T> {
+enum NodeKind<T> {
     Empty,
     NonEmpty(Box<ListNode<T>>),
 }
 
 struct ListNode<T> {
     element: T,
-    next: List<T>,
+    next: NodeKind<T>,
 }
 
-fn print_node_val(root: &List<i32>) {
+fn print_node_val(root: &NodeKind<i32>) {
     match root {
         Empty => return,
         NonEmpty(node) => {
@@ -18,7 +18,7 @@ fn print_node_val(root: &List<i32>) {
     }
 }
 
-use self::List::*;
+use self::NodeKind::*;
 
 fn main() {
     // build a list
