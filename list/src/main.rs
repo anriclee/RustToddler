@@ -3,10 +3,11 @@ struct ListNode<T> {
     next: Box<Option<ListNode<T>>>,
 }
 
+use std::ops::Deref;
 
 fn print_node_val(root: &ListNode<u32>) {
     println!("the value:{}", root.element);
-    match &*root.next {
+    match root.next.deref() {
         Some(node) => {
             print_node_val(&node);
         }
