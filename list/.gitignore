@@ -1,2 +1,4 @@
 ./target/rls
 /target
+/**/target
+!/**/src/**/target/

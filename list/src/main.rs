@@ -1,41 +1,37 @@
-enum NodeKind<T> {
-    Empty,
-    NonEmpty(Box<ListNode<T>>),
-}
-
 struct ListNode<T> {
     element: T,
-    next: NodeKind<T>,
+    next: Box<Option<ListNode<T>>>,
 }
 
-fn print_node_val(root: &NodeKind<i32>) {
-    match root {
-        Empty => return,
-        NonEmpty(node) => {
-            println!("the value:{}", node.element);
-            print_node_val(&node.next);
+
+fn print_node_val(root: &ListNode<u32>) {
+    println!("the value:{}", root.element);
+    match &*root.next {
+        Some(node) => {
+            print_node_val(&node);
+        }
+        None => {
+            return;
         }
     }
 }
 
-use self::NodeKind::*;
-
 fn main() {
     // build a list
-    let n1 = NonEmpty(Box::new(ListNode {
+    let n1 = ListNode {
         element: 1,
-        next: Empty,
-    }));
+        next: Box::new(None),
+    };
 
-    let n2 = NonEmpty(Box::new(ListNode {
+    let n2 = ListNode {
         element: 2,
-        next: n1,
-    }));
+        next: Box::new(Some(n1)),
+    };
 
-    let n3 = NonEmpty(Box::new(ListNode {
+    let n3 = ListNode {
         element: 3,
-        next: n2,
-    }));
+        next: Box::new(Some(n2)),
+    };
 
     print_node_val(&n3);
 }
